@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html
+        lang="en"
+        class="light-style layout-menu-fixed"
+        dir="ltr"
+        data-theme="theme-default"
+        data-assets-path="../assets/"
+        data-template="vertical-menu-template-free"
+        xmlns:th="https://thymeleaf.org"
+        xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+<head>
+    <meta charset="utf-8"/>
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+
+    <title>Basic Inputs - Forms | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+
+    <meta name="description" content=""/>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico"/>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link
+            href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+            rel="stylesheet"
+    />
+
+    <!-- Icons. Uncomment required icon fonts -->
+    <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css"/>
+
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="../assets/vendor/css/core.css" class="template-customizer-core-css"/>
+    <link rel="stylesheet" href="../assets/vendor/css/theme-default.css" class="template-customizer-theme-css"/>
+    <link rel="stylesheet" href="../assets/css/demo.css"/>
+
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css"/>
+
+    <!-- Page CSS -->
+
+    <!-- Helpers -->
+    <script src="../assets/vendor/js/helpers.js"></script>
+
+    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
+    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+    <script src="../assets/js/config.js"></script>
+</head>
+
+<body>
+<div th:replace="layout/main-layout.html::layout(~{ :: #content})">
+    <!-- Content -->
+    <div id="content">
+        <div class="container-xxl flex-grow-1 container-p-y">
+            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Administration /</span> Update Exam
+            </h4>
+
+            <div class="row">
+                <!-- Form -->
+                <div class="col-xl">
+                    <div class="card mb-4">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0">Exam General Information Form</h5>
+                        </div>
+                        <div class="card-body">
+                            <form method="post" action="/exams/add" modelAttribute="exam">
+                                <div class="row">
+                                    <div class="col-lg-6 mb-4 mb-xl-0">
+                                        <input
+                                                th:value="${exam.id}"
+                                                type="hidden"
+                                                name="examId"
+                                        />
+                                        <label class="form-label" for="spanName">Name</label>
+                                        <div class="input-group input-group-merge">
+                                                    <span id="spanName" class="input-group-text"><i
+                                                            class="bx bx-detail"></i></span>
+                                            <input
+                                                    th:value="${exam.name}"
+                                                    type="text"
+                                                    class="form-control"
+                                                    id="inputName"
+                                                    name="examName"
+                                                    placeholder="First Exam"
+                                                    aria-label="First Exam"
+                                                    aria-describedby="inputName"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label class="form-label" for="spanTitle">Title</label>
+                                        <div class="input-group input-group-merge">
+                                                    <span id="spanTitle" class="input-group-text"><i
+                                                            class="bx bx-detail"></i></span>
+                                            <input
+                                                    th:value="${exam.title}"
+                                                    type="text"
+                                                    class="form-control"
+                                                    id="inputTitle"
+                                                    name="examTitle"
+                                                    placeholder="Exam 1"
+                                                    aria-label="Exam 1"
+                                                    aria-describedby="inputTitle"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6 mb-4 mb-xl-0">
+                                        <label class="form-label" for="spanStartDate">Start Date</label>
+                                        <div class="input-group input-group-merge">
+                                                    <span id="spanStartDate" class="input-group-text"><i
+                                                            class="bx bx-calendar"></i></span>
+                                            <input th:value="${{exam.startDate}}" class="form-control"
+                                                   type="datetime-local"
+                                                   id="inputStartDate"
+                                                   name="examStartDate"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label class="form-label" for="spanFinishDate">Finish Date</label>
+                                        <div class="input-group input-group-merge">
+                                                    <span id="spanFinishDate" class="input-group-text"><i
+                                                            class="bx bx-calendar"></i></span>
+                                            <input th:value="${{exam.finishDate}}" class="form-control"
+                                                   type="datetime-local"
+                                                   id="inputFinishDate"
+                                                   name="examFinishDate"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6 mb-4 mb-xl-0">
+                                        <label class="form-label" for="inputDescription">Description</label>
+                                        <div class="input-group input-group-merge">
+                                                <span id="inputDescription" class="input-group-text"><i
+                                                        class="bx bxs-detail"></i></span>
+                                            <textarea th:text="${exam.description}" class="form-control"
+                                                      name="examDescription"
+                                                      id="txtDescription"
+                                                      rows="1"></textarea>
+                                        </div>
+                                    </div>
+                                    <input sec:authorize="hasRole('COMPANY_ADMIN')" th:value="${#authentication.principal.user.companyId}" class="form-control" type="hidden" id="inputCompany" name="companyId"/>
+                                    <div sec:authorize="hasRole('ADMIN')" class="col-lg-6">
+                                        <label class="form-label" for="inputCompany">Company</label>
+                                        <div class="input-group input-group-merge">
+                                            <span class="input-group-text"><i class="bx bx-buildings"></i></span>
+                                            <select id="inputCompany" name="companyId" class="form-select">
+                                                <option value="-1">Select a Company</option>
+                                                <option th:each="company : ${companies}" th:value="${company.id}"
+                                                        th:text="${company.name}"
+                                                        th:selected="${company.id==exam.companyId}"></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label class="form-label" for="inputContent">Content</label>
+                                        <div class="input-group input-group-merge">
+                                            <span class="input-group-text"><i class="bx bx-buildings"></i></span>
+                                            <select id="inputContent" name="contentId" class="form-select">
+                                                <option value="-1">Select a Content</option>
+                                                <option th:each="content : ${contents}" th:value="${content.id}"
+                                                        th:text="${content.name}"
+                                                        th:selected="${content.id==exam.contentId}"></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!--/ Form -->
+            </div>
+            <div class="row" style="margin-bottom:15px;">
+                <div class="col-xl">
+                        <span class="float-end">
+                            <span>Add Question</span>
+                            <button id="btnAddQuestion" type="button"
+                                    class="btn btn-sm rounded-pill btn-icon btn-primary"><span
+                                    class="tf-icons bx bx-plus-medical bx-xs"></span></button></span>
+                </div>
+            </div>
+            <div class="row">
+                <!-- Form -->
+                <div id="questions" class="col-xl">
+                    <div class="card mb-4" th:each="question : ${exam.questions}">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0">Question</h5>
+                        </div>
+                        <div name="questionWrapper" class="card-body">
+                            <div class="mb-3">
+                                <label class="form-label" for="spanQTitle">Title</label>
+                                <span class="float-end" style="margin-bottom:7px">
+                                             <span>Remove Question</span>
+                                             <button name="btnRemoveQuestion" type="button"
+                                                     class="btn btn-sm rounded-pill btn-icon btn-danger"><span
+                                                     class="tf-icons bx bx-x"></button>
+                                        </span>
+                                <input
+                                        th:value="${question.id}"
+                                        type="hidden"
+                                        name="questionId"
+                                />
+                                <div class="input-group input-group-merge">
+                                                    <span id="spanQTitle" class="input-group-text"><i
+                                                            class="bx bx-detail"></i></span>
+                                    <input
+                                            th:value="${question.title}"
+                                            type="text"
+                                            class="form-control"
+                                            id="inputQTitle"
+                                            name="questionTitle"
+                                            placeholder="Question 1"
+                                            aria-label="Question 1"
+                                            aria-describedby="inputTitle"
+                                    />
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="spanQuestion">Question</label>
+                                <div class="input-group input-group-merge">
+                                                    <span id="spanQuestion" class="input-group-text"><i
+                                                            class="bx bx-question-mark"></i></span>
+                                    <textarea th:text="${question.question}" placeholder="Question..."
+                                              class="form-control" name="question"
+                                              id="txtQuestion"
+                                              rows="1"></textarea>
+                                </div>
+                            </div>
+                            <div class="card h-100">
+                                <img name="imageImg" class="card-img-top" style="max-width:500px" th:if="${question.hasImage}" th:src="${question.imagePath}" alt="Card image cap" />
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Image</label>
+                                <div class="input-group input-group-merge">
+                                    <span class="input-group-text"><i class="bx bx-cube-alt"></i></span>
+                                    <input class="form-control" type="file" name="imageFile" id="imageFile" accept="image/*"/>
+                                </div>
+                            </div>
+                            <div class="form-check form-switch mb-3">
+                                <input th:checked="${question.isMultipleChoice}" class="form-check-input"
+                                       type="checkbox" id="inputMultipleChoice"
+                                       name="isMultipleChoice" checked/>
+                                <label class="form-check-label" for="inputMultipleChoice">Multiple
+                                    Choice</label>
+                            </div>
+                            <div name="answersTab">
+                                <div th:if="${question.isMultipleChoice}">
+                                    <label class="form-label">Answers</label>
+                                    <span class="float-end">
+                                                <span>Add Answer</span>
+                                                <button name="btnAddAnswer" type="button"
+                                                        class="btn btn-sm rounded-pill btn-icon btn-primary"><span
+                                                        class="tf-icons bx bx-plus-medical bx-xs"></span></button>
+                                        </span>
+                                    <hr class="m-0">
+                                    <br>
+                                    <div class="answers" name="answers">
+                                        <div th:each="answer : ${question.answers}" name="answerWrapper" class="row">
+                                            <label class="form-label" for="spanAnswer">Answer</label>
+                                            <div class="col-lg-10 mb-4 mb-xl-0">
+                                                <div class="input-group input-group-merge">
+                                                        <span id="spanAnswer" class="input-group-text"><i
+                                                                class="bx bx-check-square"></i></span>
+                                                    <input
+                                                            th:value="${answer.id}"
+                                                            type="hidden"
+                                                            name="answerId"
+                                                    />
+                                                    <input
+                                                            th:value="${answer.answer}"
+                                                            type="text"
+                                                            class="form-control"
+                                                            name="answer"
+                                                            placeholder="Answer"
+                                                            aria-label="Answer"
+                                                            aria-describedby="inputAnswer"
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div class="form-check form-switch col-lg-2 mb-4">
+                                                <input th:checked="${answer.isRightAnswer}" class="form-check-input"
+                                                       type="checkbox" name="isRightAnswer"/>
+                                                <label class="form-check-label">Right Answer</label>
+                                                <span class="float-end">
+                                                        <button name="btnRemoveAnswer" type="button"
+                                                                class="btn btn-sm rounded-pill btn-icon btn-danger"><span
+                                                                class="tf-icons bx bx-x"></span></button>
+                                                    </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--/ Form -->
+            </div>
+            <button id="btnSave" type="button" class="btn btn-primary">Save</button>
+        </div>
+        <!-- / Content -->
+        <!-- Modal -->
+        <div id="modal" class="modal fade" tabindex="-1">
+            <div class="modal-dialog">
+                <form class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="backDropModalTitle">Result</h5>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row g-2">
+                            <div id="resultMessage" role="alert"></div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="/exams" id="btnModalOK" class="btn btn-primary">OK</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- Modal -->
+    </div>
+</div>
+
+<!-- Core JS -->
+<!-- build:js assets/vendor/js/core.js -->
+<script src="../assets/vendor/libs/jquery/jquery.js"></script>
+<script src="../assets/vendor/libs/popper/popper.js"></script>
+<script src="../assets/vendor/js/bootstrap.js"></script>
+<script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+
+<script src="../assets/vendor/js/menu.js"></script>
+<!-- endbuild -->
+
+<!-- Vendors JS -->
+
+<!-- Main JS -->
+<script src="../assets/js/main.js"></script>
+
+<!-- Page JS -->
+
+<script src="../assets/js/form-basic-inputs.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#btnAddQuestion').click(function(e){
+            $('#questions').append(`<div class="card mb-4">
+                                <div class="card-header d-flex justify-content-between align-items-center">
+                                    <h5 class="mb-0">Question</h5>
+                                </div>
+                                <div name="questionWrapper" class="card-body">
+                                    <div class="mb-3">
+                                        <label class="form-label" for="spanQTitle">Title</label>
+                                        <span class="float-end" style="margin-bottom:7px">
+                                             <span>Remove Question</span>
+                                             <button name="btnRemoveQuestion" type="button" class="btn btn-sm rounded-pill btn-icon btn-danger"><span class="tf-icons bx bx-x"></button>
+                                        </span>
+                                        <div class="input-group input-group-merge">
+                                                    <span id="spanQTitle" class="input-group-text"><i
+                                                            class="bx bx-detail"></i></span>
+                                            <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    id="inputQTitle"
+                                                    name="questionTitle"
+                                                    placeholder="Question 1"
+                                                    aria-label="Question 1"
+                                                    aria-describedby="inputTitle"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label" for="spanQuestion">Question</label>
+                                        <div class="input-group input-group-merge">
+                                                    <span id="spanQuestion" class="input-group-text"><i
+                                                            class="bx bx-question-mark"></i></span>
+                                            <textarea placeholder="Question..." class="form-control" name="question"
+                                                      id="txtQuestion"
+                                                      rows="1"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="card h-100">
+                                        <img name="imageImg" class="card-img-top" style="max-width:500px" alt="Card image cap" />
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Image</label>
+                                        <div class="input-group input-group-merge">
+                                            <span class="input-group-text"><i class="bx bx-cube-alt"></i></span>
+                                            <input class="form-control" type="file" name="imageFile" id="imageFile" accept="image/*"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-check form-switch mb-3">
+                                        <input class="form-check-input" type="checkbox" id="inputMultipleChoice"
+                                               name="isMultipleChoice" checked/>
+                                        <label class="form-check-label" for="inputMultipleChoice">Multiple
+                                            Choice</label>
+                                    </div>
+                                    <div name="answersWrapper">
+                                        <label class="form-label">Answers</label>
+                                        <span class="float-end">
+                                                <span>Add Answer</span>
+                                                <button name="btnAddAnswer" type="button"
+                                                        class="btn btn-sm rounded-pill btn-icon btn-primary"><span
+                                                        class="tf-icons bx bx-plus-medical bx-xs"></span></button>
+                                        </span>
+                                        <hr class="m-0">
+                                        <br>
+                                        <div class="answers" name="answers"></div>
+                                    </div>
+                                </div>
+                              </div>`);
+        });
+
+        $(document).on("click", '[name="btnAddAnswer"]', function(e){
+            e.preventDefault();
+            $(this).parent().siblings().nextAll('.answers').append(`<div name="answerWrapper" class="row">
+                                            <label class="form-label" for="spanAnswer">Answer</label>
+                                            <div class="col-lg-10 mb-4 mb-xl-0">
+                                                <div class="input-group input-group-merge">
+                                                    <span id="spanAnswer" class="input-group-text"><i
+                                                            class="bx bx-check-square"></i></span>
+                                                    <input
+                                                            type="text"
+                                                            class="form-control"
+                                                            name="answer"
+                                                            placeholder="Answer"
+                                                            aria-label="Answer"
+                                                            aria-describedby="inputAnswer"
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div class="form-check form-switch col-lg-2 mb-4">
+                                                <input class="form-check-input" type="checkbox" name="isRightAnswer"/>
+                                                <label class="form-check-label">Right Answer</label>
+                                                <span class="float-end">
+                                                    <button name="btnRemoveAnswer" type="button" class="btn btn-sm rounded-pill btn-icon btn-danger"><span class="tf-icons bx bx-x"></span></button>
+                                                </span>
+                                            </div>
+                                        </div>`);
+
+        });
+
+        $(document).on("change", '[name="imageFile"]', function(e){
+             var input = this;
+             if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (b) {
+                    $(input).parents('[name="questionWrapper"]').find('[name="imageImg"]').attr('src', b.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        });
+
+        $(document).on("click", '[name="btnRemoveAnswer"]', function(e){
+            $(this).closest('.row').remove();
+        });
+
+        $(document).on("click", '[name="btnRemoveQuestion"]', function(e){
+            $(this).closest('.card').remove();
+        });
+
+        $(document).on("change", '[name="isMultipleChoice"]', function(e){
+            if(!e.currentTarget.checked)
+               $(this).parent().siblings("[name='answersTab']").html('')
+            else{
+                $(this).parent().siblings("[name='answersTab']").html(`
+                                        <label class="form-label">Answers</label>
+                                        <span class="float-end">
+                                                <span>Add Answer</span>
+                                                <button name="btnAddAnswer" type="button"
+                                                        class="btn btn-sm rounded-pill btn-icon btn-primary"><span
+                                                        class="tf-icons bx bx-plus-medical bx-xs"></span></button>
+                                        </span>
+                                        <hr class="m-0">
+                                        <br>
+                                        <div class="answers" name="answers"></div>`)
+            }
+        });
+
+        $(document).on("click", '#btnSave', function(e){
+            $('#resultMessage').removeClass().html("");
+            var exam = {id: -1, name:"",title:"",startDate:"",finishDate:"",description:"",companyId:"",contentId:"",questions:[]};
+            var formData = new FormData();
+            exam.id=$('[name="examId"]').val();
+            exam.name=$('[name="examName"]').val();
+            exam.title=$('[name="examTitle"]').val();
+            exam.startDate=$('[name="examStartDate"]').val();
+            exam.finishDate=$('[name="examFinishDate"]').val();
+            exam.description=$('[name="examDescription"]').val();
+            var companyId = $('[name="companyId"] option:selected').val();
+            if(companyId == null){
+                companyId = $('[name="companyId"]').val();
+            }
+            exam.companyId=companyId;
+            exam.contentId=$('[name="contentId"] option:selected').val();
+            var questionWrapper = $('[name="questionWrapper"]');
+            questionWrapper.each(function(questionIndex,qElement){
+                var qElement = $(qElement);
+                var question = {id:-1,title:"",order:questionIndex,question:"",isMultipleChoice:"false",hasImage:false,answers:[]};
+                question.id=qElement.find('[name="questionId"]').val();
+                question.title= qElement.find('[name="questionTitle"]').val();
+                question.isMultipleChoice= qElement.find('[name="isMultipleChoice"]').is(':checked');
+                question.question = qElement.find('[name="question"]').val();
+                if(qElement.find('input[name="imageFile"]').get(0)){
+                    var image = qElement.find('input[name="imageFile"]').get(0).files[0];
+                    formData.append('files',image);
+                    if(image != null)
+                        question.hasImage=true;
+                }
+                var answersWrapper = qElement.find('[name="answerWrapper"]');
+                answersWrapper.each(function(answerIndex,aElement){
+                    var aElement = $(aElement);
+                    var answer = {id:-1,answer:"",order:answerIndex,isRightAnswer:""};
+                    answer.id=aElement.find('[name="answerId"]').val();
+                    answer.answer = aElement.find('[name="answer"]').val();
+                    answer.isRightAnswer = aElement.find('[name="isRightAnswer"]').is(':checked');
+                    question.answers.push(answer);
+                });
+                exam.questions.push(question);
+            });
+            formData.append('exam',new Blob([JSON.stringify(exam)], {
+                type: "application/json"
+            }));
+            $.ajax({
+              url: "/exams/update",
+              type: "POST",
+              contentType: false,
+              data: formData,
+              processData: false,
+              success: function(response) {
+                $('#resultMessage').addClass("alert alert-success").html("Exam is updated successfully");
+                $('#btnModalOK').attr("href", "/exams");
+                $('#modal').modal('show');
+              },
+              error: function(jqXHR, exception) {
+                var errorDetail = "";
+                if(jqXHR.status === 400){
+                    $(jqXHR.responseJSON.subErrors).each(function(index,element){
+                        errorDetail +=element.message;
+                    });
+                }
+                $('#resultMessage').addClass("alert alert-danger").html("Exam update is failed : Cause "+errorDetail);
+                $('#btnModalOK').attr("href", "#").attr("data-bs-dismiss","modal");
+                $('#modal').modal('show');
+              },
+            });
+
+        });
+    });
+
+
+
+
+
+
+</script>
+<!-- Place this tag in your head or just before your close body tag. -->
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+</body>
+</html>

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html
+        lang="en"
+        class="light-style layout-menu-fixed"
+        dir="ltr"
+        data-theme="theme-default"
+        data-assets-path="../assets/"
+        data-template="vertical-menu-template-free"
+        xmlns:th="https://thymeleaf.org"
+>
+<head>
+    <meta charset="utf-8"/>
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+
+    <title>Basic Inputs - Forms | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+
+    <meta name="description" content=""/>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico"/>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link
+            href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+            rel="stylesheet"
+    />
+
+    <!-- Icons. Uncomment required icon fonts -->
+    <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css"/>
+
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="../assets/vendor/css/core.css" class="template-customizer-core-css"/>
+    <link rel="stylesheet" href="../assets/vendor/css/theme-default.css" class="template-customizer-theme-css"/>
+    <link rel="stylesheet" href="../assets/css/demo.css"/>
+
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css"/>
+
+    <!-- Page CSS -->
+
+    <!-- Helpers -->
+    <script src="../assets/vendor/js/helpers.js"></script>
+
+    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
+    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+    <script src="../assets/js/config.js"></script>
+</head>
+
+<body>
+<div th:replace="layout/main-layout.html::layout(~{ :: #userContent})">
+    <!-- Content -->
+    <div id="userContent" class="container-xxl flex-grow-1 container-p-y">
+        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Lessons /</span> Videos
+            <span class="float-end">
+                            <button data-bs-toggle="offcanvas" data-bs-target="#offcanvasAddUser"
+                                    class="btn rounded-pill btn-icon btn-primary"><span
+                                    class="tf-icons bx bx-detail"></span></button>
+                        </span>
+        </h4>
+        <div class="row">
+            <!-- Basic Bootstrap Table -->
+            <div class="card">
+                <h5 class="card-header">Video Lesson</h5>
+                <div class="card-body">
+                    <div class="col-12 mb-4">
+                        <video
+                                id="player"
+                                class="video-js vjs-default-skin vjs-big-play-centered"
+                                controls
+                                preload="auto"
+                                data-setup='{"fluid": true}'>
+                            <source th:src="${userContents.get(0).path}" type="video/mp4"/>
+                            <p class="vjs-no-js">
+                                To view this video please enable JavaScript, and consider upgrading to a
+                                web browser that
+                                <a href="https://videojs.com/html5-video-support/" target="_blank">
+                                    supports HTML5 video
+                                </a>
+                            </p>
+                        </video>
+                    </div>
+                </div>
+                <!-- Offcanvas to add new user -->
+                <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasAddUser"
+                     aria-labelledby="offcanvasAddUserLabel">
+                    <div class="offcanvas-header">
+                        <h5 id="offcanvasAddUserLabel" class="offcanvas-title">Video List</h5>
+                        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                                aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body mx-0 flex-grow-0">
+                        <div id="accordionPayment" class="accordion">
+                            <div th:each="userContent,userContentInfo:${userContents}" class="card accordion-item">
+                                <h2 class="accordion-header">
+                                    <button th:data-bs-target="${'#accordionVideo'+userContentInfo.index}"
+                                            th:aria-controls="${'#accordionVideo'+userContentInfo.index}"
+                                            class="accordion-button" type="button" data-bs-toggle="collapse"
+                                            aria-expanded="false">
+                                        [[${userContent.shortName}]] - [[${userContent.title}]]
+                                        <span th:class="${userContent.isWatched}?'badge bg-label-success me-1 m-2':''">
+                                            <i th:class="${userContent.isWatched}?'tf-icons bx bx-check':''"></i>
+                                        </span>
+                                    </button>
+                                    <p style="font-size:15px" class="badge bg-label-primary p-2 m-2">
+                                        <i class="bx bx-time bx-xs"></i>
+                                        [[${userContent.duration}]]
+                                    </p>
+                                    <button th:datasrc="${userContent.path}" name="btnWatch" th:id="${userContent.id}"
+                                            type="button"
+                                            class="btn rounded-pill btn-icon btn-primary float-end m-2"><span
+                                            class="tf-icons bx bx-play"></span></button>
+                                    <div class="progress m-2">
+                                        <div class="progress-bar" role="progressbar"
+                                             th:style="'width:'+${userContent.watchedRate}+'%'"
+                                             th:aria-valuenow="${userContent.watchedRate}" aria-valuemin="0"
+                                             aria-valuemax="100">[[${userContent.watchedRate}]]%
+                                        </div>
+                                    </div>
+                                </h2>
+                                <div th:id="${'accordionVideo'+userContentInfo.index}"
+                                     class="accordion-collapse collapse">
+                                    <div class="accordion-body">
+                                        <h5 class="card-title mb-2">[[${userContent.name}]]</h5>
+                                        <p class="card-text">[[${userContent.description}]]</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--/ Basic Bootstrap Table -->
+    </div>
+</div>
+<!-- / Content -->
+
+<!-- Core JS -->
+<!-- build:js assets/vendor/js/core.js -->
+<script src="../assets/vendor/libs/jquery/jquery.js"></script>
+<script src="../assets/vendor/libs/popper/popper.js"></script>
+<script src="../assets/vendor/js/bootstrap.js"></script>
+<script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+
+<script src="../assets/vendor/js/menu.js"></script>
+<!-- endbuild -->
+
+<!-- Vendors JS -->
+
+<!-- Main JS -->
+<script src="../assets/js/main.js"></script>
+
+<!-- Page JS -->
+
+<script src="../assets/js/form-basic-inputs.js"></script>
+<script src="../assets/js/utils.js"></script>
+<link href="//vjs.zencdn.net/7.10.2/video-js.min.css" rel="stylesheet">
+<script src="//vjs.zencdn.net/7.10.2/video.min.js"></script>
+<script type="text/javascript">
+    var player = videojs('player');
+    $(document).ready(function(){
+        var startedAt = getCurrentDate();
+        var isContentFinished = false;
+        $(document).on("click", '[name="btnWatch"]', function(e){
+            if(player.currentTime()>0){
+                sendVideoStatistic();
+            }
+            $('#player').attr('name',$(this).attr('id'));
+            player.initChildren();
+            var datasrc = $(this).attr('datasrc');
+            player.src({type: 'video/mp4', src: datasrc});
+            isContentFinished = false;
+        });
+
+        player.on('play', function() {
+            startedAt = getCurrentDate();
+         });
+
+         player.on('ended', function(){
+            isContentFinished = true;
+         });
+
+         $(window).on("beforeunload", function() {
+            if(player.currentTime()>0){
+                sendVideoStatistic();
+            }
+         });
+
+         function sendVideoStatistic(){
+            var videoStatistic = {videoId:"",watchDuration:"",remainingTime:"",isContentFinished:false,startedAt:"",finishedAt:""};
+            videoStatistic.startedAt = startedAt;
+            videoStatistic.isContentFinished = isContentFinished;
+            videoStatistic.videoId = $('#player').attr('name');
+            videoStatistic.watchDuration = player.currentTime();
+            videoStatistic.remainingTime = player.remainingTime();
+            videoStatistic.finishedAt = getCurrentDate();
+
+            $.ajax({
+              url: "/statistics/add-video-statistic",
+              type: "POST",
+              contentType: "application/json",
+              data: JSON.stringify(videoStatistic),
+              success: function(response) {
+
+              },
+              error: function(jqXHR, exception) {
+
+              },
+            });
+         }
+    });
+
+
+</script>
+<!-- Place this tag in your head or just before your close body tag. -->
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+</body>
+</html>
